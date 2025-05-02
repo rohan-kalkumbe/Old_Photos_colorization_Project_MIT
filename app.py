@@ -8,14 +8,14 @@ app = Flask(__name__, template_folder="templates", static_folder="static")
 
 UPLOAD_FOLDER = "static/uploads"
 RESULT_FOLDER = "static/results"
+MODELS_FOLDER = "models"  # Change to the relative path of the models folder
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(RESULT_FOLDER, exist_ok=True)
 
-# ✅ Correct prototxt filename
-PROTOTXT_PATH = r"C:\Users\Adin\OneDrive\Desktop\MIT\old_photos_colorization\models\colorize.prototext"
-MODEL_PATH = r"C:\Users\Adin\OneDrive\Desktop\MIT\old_photos_colorization\models\release.caffemodel"
-POINTS_PATH = r"C:\Users\Adin\OneDrive\Desktop\MIT\old_photos_colorization\models\pts_in_hull.npy"
-
+# ✅ Correct prototxt filename with relative paths
+PROTOTXT_PATH = os.path.join(MODELS_FOLDER, "colorize.prototext")
+MODEL_PATH = os.path.join(MODELS_FOLDER, "release.caffemodel")
+POINTS_PATH = os.path.join(MODELS_FOLDER, "pts_in_hull.npy")
 
 # Load model
 net = cv2.dnn.readNetFromCaffe(PROTOTXT_PATH, MODEL_PATH)
