@@ -1,0 +1,3 @@
+PROTOTXT_PATH = r"C:\Users\Adin\OneDrive\Desktop\MIT\image-colorization1-main\image-colorization1-main\models\colorize.prototext"
+MODEL_PATH = r"C:\Users\Adin\OneDrive\Desktop\MIT\image-colorization1-main\image-colorization1-main\models\release.caffemodel"
+POINTS_PATH = r"C:\Users\Adin\OneDrive\Desktop\MIT\image-colorization1-main\image-colorization1-main\models\pts_in_hull.npy"
