@@ -13,20 +13,24 @@ function uploadImage() {
     let formData = new FormData();
     formData.append("file", fileInput.files[0]);
 
-    let reader = new FileReader();
-    reader.onload = function (e) {
-        let img = new Image();
-        img.src = e.target.result;
-    };
-    reader.readAsDataURL(fileInput.files[0]);
-
     fetch("/upload", {
         method: "POST",
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Server error: " + response.status);
+        }
+        return response.json();
+    })
     .then(data => {
-        colorizedImagesContainer.innerHTML = "";  // Clear previous images
+        if (!data.images || data.images.length === 0) {
+            alert("No colorized images returned.");
+            return;
+        }
+
+        colorizedImagesContainer.innerHTML = ""; // Clear previous images
+
         data.images.forEach((imageUrl, index) => {
             let imgElement = document.createElement("img");
             imgElement.src = imageUrl;
@@ -40,5 +44,8 @@ function uploadImage() {
             colorizedImagesContainer.appendChild(imgElement);
         });
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Something went wrong during the upload.");
+    });
 }
